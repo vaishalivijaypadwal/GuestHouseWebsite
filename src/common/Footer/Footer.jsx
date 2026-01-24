@@ -24,10 +24,18 @@ const Footer = () => {
           <div>
             <div className="mb-6">
               <Link to="/" className="inline-flex items-center">
-                <div className="text-3xl font-bold text-white">
-                  <span className="text-white-400">Clares Cove Guest House</span>
-                 
-                </div>
+                {/* Logo Image */}
+                <img 
+  src="/images/logo.jpg" 
+  alt="Clares Cove Guest House Logo"
+  className="h-16 w-30 mr-3 object-contain rounded-md border border-gray-300"
+  onError={(e) => {
+    e.target.onerror = null;
+    e.target.style.display = 'none';
+  }}
+/>
+
+
                
               </Link>
             </div>
@@ -90,54 +98,58 @@ const Footer = () => {
             <div className="border-l-4 border-blue-500 pl-4 py-2">
               <h4 className="font-bold text-white mb-1">Opening Hours</h4>
               <p className="text-gray-300 text-sm">24/7 Reception</p>
-              <p className="text-gray-300 text-sm">Check-in: 2:00 PM</p>
-              <p className="text-gray-300 text-sm">Check-out: 11:00 AM</p>
+              <p className="text-gray-300 text-sm">Check-in: 11:00 AM</p>
+              <p className="text-gray-300 text-sm">Check-out: 10:00 PM</p>
             </div>
           </div>
 
-        
-         {/* Column 2: Quick Links & Navigation */}
-<div>
-  <h3 className="text-2xl font-bold mb-6 text-white">Quick Links</h3>
-  
-  <div className="grid grid-cols-2 gap-4">
-    <div>
-     
-      <ul className="space-y-2">
-        <li>
-          <Link to="/" className="text-gray-300 hover:text-white hover:translate-x-1 transition-all duration-300 block">
-            Home
-          </Link>
-        </li>
-        <li>
-          <Link to="/about" className="text-gray-300 hover:text-white hover:translate-x-1 transition-all duration-300 block">
-            About Us
-          </Link>
-        </li>
-        <li>
-          <Link to="/gallery" className="text-gray-300 hover:text-white hover:translate-x-1 transition-all duration-300 block">
-            Gallery
-          </Link>
-        </li>
-       
-        <li>
-          <Link to="/contact" className="text-gray-300 hover:text-white hover:translate-x-1 transition-all duration-300 block">
-            Contact Us
-          </Link>
-        </li>
-        <li>
-          <Link to="/booking" className="text-gray-300 hover:text-white hover:translate-x-1 transition-all duration-300 block">
-            Book Now
-          </Link>
-        </li>
-      </ul>
-    </div>
-    
-   
-  </div>
-  
- 
-</div>
+          {/* Column 2: Quick Links & Navigation */}
+          <div>
+            <h3 className="text-2xl font-bold mb-6 text-white">Quick Links</h3>
+            
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <ul className="space-y-2">
+                  <li>
+                    <Link to="/" className="text-gray-300 hover:text-white hover:translate-x-1 transition-all duration-300 block">
+                      Home
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/about" className="text-gray-300 hover:text-white hover:translate-x-1 transition-all duration-300 block">
+                      About Us
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/gallery" className="text-gray-300 hover:text-white hover:translate-x-1 transition-all duration-300 block">
+                      Gallery
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+              
+              <div>
+                <ul className="space-y-2">
+                  <li>
+                    <Link to="/virtual-tour" className="text-gray-300 hover:text-white hover:translate-x-1 transition-all duration-300 block">
+                      360° Virtual Tour
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/contact" className="text-gray-300 hover:text-white hover:translate-x-1 transition-all duration-300 block">
+                      Contact Us
+                    </Link>
+                  </li>
+                  <li>
+                    <Link to="/booking" className="text-gray-300 hover:text-white hover:translate-x-1 transition-all duration-300 block">
+                      Book Now
+                    </Link>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
           {/* Column 3: Contact Us */}
           <div>
             <h3 className="text-2xl font-bold mb-6 text-white">Contact Details</h3>
@@ -171,10 +183,12 @@ const Footer = () => {
                 <div>
                   <h4 className="font-bold text-white mb-1">Phone Numbers</h4>
                   <div className="space-y-1">
-                    <a href="tel:+919876543210" className="text-gray-300 hover:text-white text-sm block transition-colors">
-                      +91 98765 43210
+                    <a href="tel:+918999358172" className="text-gray-300 hover:text-white text-sm block transition-colors">
+                      +91 89993 58172
                     </a>
-                   
+                    <a href="tel:+917249171196" className="text-gray-300 hover:text-white text-sm block transition-colors">
+                      +91 72491 71196
+                    </a>
                   </div>
                 </div>
               </div>
@@ -185,16 +199,13 @@ const Footer = () => {
                 </div>
                 <div>
                   <h4 className="font-bold text-white mb-1">Email Address</h4>
-                  <a href="mailto:ClaresCoveGuestHouse@gmail.com" className="text-gray-300 hover:text-white text-sm block transition-colors">
-                    ClaresCoveGuestHouse@gmail.com
+                  <a href="mailto:clarescovegoa@gmail.com" className="text-gray-300 hover:text-white text-sm block transition-colors">
+                    clarescovegoa@gmail.com
                   </a>
-                 
                 </div>
               </div>
-              
             </div>
           </div>
-
         </div>
 
         {/* Divider */}
@@ -203,15 +214,19 @@ const Footer = () => {
         {/* Bottom Section */}
         <div className="flex flex-col md:flex-row justify-between items-center pt-6">
           {/* Copyright */}
-           <div className="text-center md:text-left">
+          <div className="text-center md:text-left">
             <p className="text-gray-400">
               © {currentYear} Clares Cove Guest House. All rights reserved.
             </p>
-           
           </div>
           
+          {/* Made with love */}
+          <div className="flex items-center mt-4 md:mt-0">
+            <span className="text-gray-400 mr-2">Made with</span>
+            <FaHeart className="text-red-500 animate-pulse" />
+            <span className="text-gray-400 ml-2">in Goa</span>
+          </div>
         </div>
-        
       </div>
     </footer>
   );

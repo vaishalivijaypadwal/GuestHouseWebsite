@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
 import Gallery from './pages/Gallery/Gallery'; // Gallery component
+import VirtualTour from './pages/VirtualTour/VirtualTour'; // Virtual Tour component - renamed
 import Home from './pages/Home/Home'; // Home component
 import Contact from './pages/Contact/Contact'; // Contact component
 import About from './pages/About/About'; // About component
 import ClaresCoveBookingForm from './components/ClaresCoveBookingForm'; // Corrected import path
-
 import Footer from './common/Footer/Footer'; // Footer component
 
 // Simple Header Component
@@ -16,6 +16,7 @@ const Header = () => {
     { path: '/', label: 'Home' },
     { path: '/about', label: 'About' },
     { path: '/gallery', label: 'Gallery' },
+    { path: '/virtual-tour', label: '360° Virtual Tour' }, // Changed to URL-friendly path
     { path: '/contact', label: 'Contact' },
     { path: '/booking', label: 'Book Now' }, // Added booking to navigation
   ];
@@ -82,14 +83,14 @@ function App() {
         <main className="flex-grow">
           <Routes>
             <Route path="/" element={<Home />} />
-            <Route path="/home" element={<Home />} />
             <Route path="/about" element={<About />} />
             <Route path="/gallery" element={<Gallery />} />
+            <Route path="/virtual-tour" element={<VirtualTour />} /> {/* Added virtual tour route */}
             <Route path="/contact" element={<Contact />} />
             <Route path="/booking" element={<ClaresCoveBookingForm />} /> {/* Added booking route */}
           </Routes>
         </main>
-       
+        <Footer /> {/* Added Footer component */}
       </div>
     </Router>
   );

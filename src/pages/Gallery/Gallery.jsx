@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import Footer from '../../common/Footer/Footer.jsx';
+
 
 const Gallery = () => {
   /* ================= ROOM DATA WITH CATEGORIES ================= */
@@ -452,9 +452,10 @@ const Gallery = () => {
             </div>
           </div>
         )}
+        
  {/* WhatsApp Button */}
           <a
-            href="https://wa.me/917219236054"
+            href="https://wa.me/7249171196"
             target="_blank"
             rel="noopener noreferrer"
             className="fixed bottom-6 right-6 z-40 animate-float animate-scaleIn transition-all-300 hover-grow"
@@ -470,9 +471,6 @@ const Gallery = () => {
             </div>
           </a>
         
-      
-        {/* Add Footer here */}
-        <Footer />
       </div>
 
       {/* Add custom animations to global styles */}

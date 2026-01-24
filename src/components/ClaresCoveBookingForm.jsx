@@ -22,7 +22,7 @@ const ClaresCoveBookingForm = () => {
   const [animatedSections, setAnimatedSections] = useState([]);
 
   // WhatsApp number (with country code for India)
-  const whatsappNumber = "917219236054"; // 91 is India country code
+  const whatsappNumber = "917249171196"; // 91 is India country code
 
   // Room options without prices
   const roomTypes = [
@@ -674,7 +674,7 @@ const ClaresCoveBookingForm = () => {
                     <button
                       type="button"
                       onClick={() => {
-                        const phone = "7219236054";
+                        const phone = "7249171196";
                         const message = encodeURIComponent("Hello! I need help with booking at Clares Cove Guest House.");
                         window.open(`https://wa.me/91${phone}?text=${message}`, "_blank");
                       }}
@@ -735,7 +735,7 @@ const ClaresCoveBookingForm = () => {
                     Important Information
                   </h4>
                   <ul className="text-sm text-amber-800 space-y-1">
-                    <li>• Check-in: 2:00 PM | Check-out: 11:00 AM</li>
+                    <li>• Check-in: 11:00 AM | Check-out: 10:00 PM</li>
                     <li>• Free cancellation up to 7 days before check-in</li>
                     <li>• Breakfast included for all guests</li>
                     <li>• Free Wi-Fi and parking available</li>
@@ -746,13 +746,13 @@ const ClaresCoveBookingForm = () => {
                 {/* Contact Info */}
                 <div className={`mt-6 text-center text-gray-600 ${animatedSections.includes(2) ? 'animate-fadeInUp' : 'opacity-0'}`} style={{ animationDelay: '400ms' }}>
                   <p className="font-medium">Need help with your booking?</p>
-                  <p className="text-blue-700 font-bold">+91 72192 36054</p>
-                  <p className="text-sm">bookings@clarescovegoa.com</p>
+                  <p className="text-blue-700 font-bold">+91 7249171196</p>
+                  <p className="text-sm">clarescovegoa@gmail.com</p>
                   <div className="mt-2">
                     <button
                       type="button"
                       onClick={() => {
-                        const phone = "7219236054";
+                        const phone = "7249171196";
                         const message = encodeURIComponent("Hello! I need assistance with booking.");
                         window.open(`https://wa.me/91${phone}?text=${message}`, "_blank");
                       }}
@@ -777,7 +777,7 @@ const ClaresCoveBookingForm = () => {
           
           {/* WhatsApp Button */}
           <a
-            href="https://wa.me/917219236054"
+            href="https://wa.me/7249171196"
             target="_blank"
             rel="noopener noreferrer"
             className="fixed bottom-6 right-6 z-40 animate-float animate-scaleIn transition-all-300 hover-grow"

@@ -1,25 +1,25 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaUmbrellaBeach } from 'react-icons/fa';
 
 const Logo = () => {
   return (
-    <Link to="/" className="flex items-center space-x-3 group">
-      {/* Logo Icon */}
+    <Link to="/" className="flex items-center group">
+      {/* Logo Image */}
       <div className="relative">
-        <div className="w-12 h-12 bg-gradient-to-br from-primary-500 to-blue-400 rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-shadow">
-          <FaUmbrellaBeach className="w-6 h-6 text-white" />
-        </div>
-        {/* Decorative element */}
-        <div className="absolute -top-1 -right-1 w-4 h-4 bg-yellow-400 rounded-full border-2 border-white"></div>
-      </div>
-      
-      {/* Logo Text */}
-      <div className="flex flex-col">
-        <span className="text-xl font-bold bg-gradient-to-r from-primary-600 to-blue-500 bg-clip-text text-transparent">
-          Clares Cove
-        </span>
-        <span className="text-xs text-gray-500">Guest House</span>
+        <img 
+          src="/images/logo.jpg" 
+          alt="Clares Cove Guest House"
+          className="w-14 h-14 rounded-lg object-cover shadow-lg group-hover:shadow-xl transition-all duration-300 transform group-hover:scale-105"
+          onError={(e) => {
+            e.target.onerror = null;
+            // Add a fallback text
+            const parent = e.target.parentNode;
+            const fallback = document.createElement('div');
+            fallback.className = 'w-14 h-14 rounded-lg bg-gradient-to-br from-blue-500 to-blue-400 flex items-center justify-center text-white font-bold text-lg';
+            fallback.textContent = 'CC';
+            parent.replaceChild(fallback, e.target);
+          }}
+        />
       </div>
     </Link>
   );

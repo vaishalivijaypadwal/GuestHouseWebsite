@@ -19,9 +19,11 @@ import {
   FaPhone,
   FaEnvelope,
   FaMapMarkerAlt,
+  FaVideo,
+  FaCreditCard,
   FaWhatsapp
 } from 'react-icons/fa';
-import Footer from '../../common/Footer/Footer.jsx';
+
 
 const Home = () => {
   const navigate = useNavigate();
@@ -144,15 +146,40 @@ const Home = () => {
   });
   const [formStatus, setFormStatus] = useState('');
 
+  
   // Feature highlights
-  const features = [
-    { icon: <FaBed className="text-4xl" />, title: "Comfortable Rooms", count: "20+ Rooms" },
-    { icon: <FaSwimmingPool className="text-4xl" />, title: "Swimming Pool", count: "Olympic Size" },
-    { icon: <FaUtensils className="text-4xl" />, title: "Restaurant", count: "Multi-cuisine" },
-    { icon: <FaWifi className="text-4xl" />, title: "Free WiFi", count: "High Speed" },
-    { icon: <FaCar className="text-4xl" />, title: "Parking", count: "Secure" },
-    { icon: <FaUmbrellaBeach className="text-4xl" />, title: "Beach Access", count: "Direct Access" }
-  ];
+const features = [
+  { 
+    icon: <FaBed className="text-4xl" />, 
+    title: "Family Comfortable", 
+    count: "20+ Rooms" 
+  },
+  { 
+    icon: <FaWifi className="text-4xl" />, 
+    title: "Free WiFi", 
+    count: "High Speed" 
+  },
+  { 
+    icon: <FaCar className="text-4xl" />, 
+    title: "Parking", 
+    count: "Secure" 
+  },
+  { 
+    icon: <FaUmbrellaBeach className="text-4xl" />, 
+    title: "Beach Access", 
+    count: "Direct Access" 
+  },
+  { 
+    icon: <FaVideo className="text-4xl" />,  // Import FaVideo from react-icons/fa
+    title: "CCTV Security", 
+    count: "24/7 Surveillance" 
+  },
+  { 
+    icon: <FaCreditCard className="text-4xl" />,  // Import FaCreditCard from react-icons/fa
+    title: "Online Payment", 
+    count: "Multiple Options" 
+  }
+];
 
   // Stats data
   const stats = [
@@ -452,12 +479,7 @@ const Home = () => {
                     </p>
                     
                     <div className="flex flex-wrap gap-4 justify-center">
-                      <button
-                        onClick={() => navigateToPage('/rooms')}
-                        className="bg-white text-blue-600 hover:bg-gray-100 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl"
-                      >
-                        View Rooms
-                      </button>
+                      
                       <button
                         onClick={() => navigateToPage('/booking')}
                         className="border-2 border-white text-white hover:bg-white/10 px-8 py-4 rounded-lg font-semibold text-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl hover:shadow-white/20"
@@ -775,11 +797,11 @@ const Home = () => {
             </div>
             <div>
               <p className="font-semibold text-lg mb-1">Phone Numbers</p>
-              <a href="tel:+918390337474" className="text-blue-200 hover:text-white transition-colors duration-300 block hover:translate-x-2">
-                 +91 8390337474
+              <a href="tel:+9189993 58172" className="text-blue-200 hover:text-white transition-colors duration-300 block hover:translate-x-2">
+                 +91 89993 58172
               </a>
-              <a href="tel:+917299931212" className="text-blue-200 hover:text-white transition-colors duration-300 block hover:translate-x-2">
-                 +91 7299931212
+              <a href="tel:+917249171196" className="text-blue-200 hover:text-white transition-colors duration-300 block hover:translate-x-2">
+                 +91 72491 71196
               </a>
             </div>
           </div>
@@ -794,8 +816,8 @@ const Home = () => {
             <div>
               <p className="font-semibold text-lg mb-1">Email Address</p>
              
-              <a href="mailto:bookings@clarescove.com" className="text-blue-200 hover:text-white transition-colors duration-300 block hover:translate-x-2">
-                 bookings@clarescove.com
+              <a href="mailto:clarescovegoa@gmail.com" className="text-blue-200 hover:text-white transition-colors duration-300 block hover:translate-x-2">
+                 clarescovegoa@gmail.com
               </a>
             </div>
           </div>
@@ -868,31 +890,18 @@ const Home = () => {
             />
           </div>
           
-          <button
-            type="submit"
-            disabled={formStatus === 'sending'}
-            className={`group w-full py-4 rounded-xl font-bold text-lg transition-all duration-300 transform hover:scale-105 animate-fadeInUp ${
-              formStatus === 'sending'
-                ? 'bg-gray-400 cursor-not-allowed'
-                : 'bg-gradient-to-r from-orange-500 to-orange-600 hover:from-orange-600 hover:to-orange-700 shadow-lg hover:shadow-xl'
-            }`}
-            style={{ animationDelay: '400ms' }}
-          >
-            <span className="relative z-10">
-              {formStatus === 'sending' ? (
-                <span className="flex items-center justify-center">
-                  <span className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-3"></span>
-                  Sending...
-                </span>
-              ) : (
-                <>
-                  Send Message
-                  <FaArrowRight className="inline-block ml-2 group-hover:translate-x-2 transition-transform duration-300" />
-                </>
-              )}
-            </span>
-            <div className="absolute inset-0 bg-gradient-to-r from-orange-400 to-orange-500 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 blur-xl"></div>
-          </button>
+           <button
+                          type="button"
+                          onClick={() => {
+                            const phoneNumber = "7249171196";
+                            const message = encodeURIComponent("Hello! I would like to know more about your services.");
+                            window.open(`https://wa.me/91${phoneNumber}?text=${message}`, "_blank");
+                          }}
+                          className="w-full bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all-300 hover-grow hover-shrink flex items-center justify-center gap-3"
+                        >
+                          <FaWhatsapp className="text-lg" />
+                          Chat on WhatsApp
+                        </button>
           
           {formStatus === 'success' && (
             <div className="mt-4 p-4 bg-green-100 text-green-700 rounded-lg text-center animate-bounce">
@@ -918,11 +927,11 @@ const Home = () => {
           <div className="flex flex-wrap gap-6 justify-center mb-8">
             <div className="flex items-center">
               <FaPhone className="text-blue-600 mr-2" />
-              <span className="font-semibold">Call Now: +91 8390337474</span>
+              <span className="font-semibold">Call Now: +91 89993 58172</span>
             </div>
             <div className="flex items-center">
               <FaWhatsapp className="text-green-600 mr-2" />
-              <span className="font-semibold">WhatsApp: +91 7219236054</span>
+              <span className="font-semibold">WhatsApp: +91 72491 71196</span>
             </div>
           </div>
           
@@ -990,12 +999,9 @@ const Home = () => {
       {/* Floating Action Buttons */}
       {mounted && (
         <>
-          
-         
-          
           {/* WhatsApp Button */}
           <a
-            href="https://wa.me/917219236054"
+            href="https://wa.me/7249171196"
             target="_blank"
             rel="noopener noreferrer"
             className="fixed bottom-6 right-6 z-40 animate-float animate-scaleIn transition-all-300 hover-grow"
@@ -1013,8 +1019,6 @@ const Home = () => {
         </>
       )}
 
-      {/* Footer */}
-      <Footer />
 
       {/* Add custom CSS for animations */}
       <style jsx>{`

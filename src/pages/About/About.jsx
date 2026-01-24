@@ -7,7 +7,7 @@ import {
   FaStar, FaMapMarkerAlt, FaPhone, FaEnvelope,
   FaClock, FaUsers, FaAward, FaHeart
 } from 'react-icons/fa';
-import Footer from '../../common/Footer/Footer.jsx';
+
 
 const About = () => {
   const [imageError, setImageError] = useState(false);
@@ -40,8 +40,7 @@ const About = () => {
       icon: "🏨",
       color: "#3b82f6",
       items: [
-        { name: "Refrigerator", icon: <FaUtensils />, color: "#ef4444" },
-        { name: "Laundry Service", icon: <FaTshirt />, color: "#8b5cf6" },
+       
         { name: "Room Service", icon: <FaConciergeBell />, color: "#f59e0b" },
         { name: "Free Parking", icon: <FaCar />, color: "#10b981" }
       ]
@@ -79,8 +78,7 @@ const About = () => {
       color: "#8b5cf6",
       items: [
         { name: "Beach Club", icon: <FaCocktail />, color: "#0d9488" },
-        { name: "Night Club", icon: <FaMoon />, color: "#374151" },
-        { name: "Swimming Pool", icon: <FaSwimmingPool />, color: "#0ea5e9" }
+       
       ]
     },
     {
@@ -88,7 +86,7 @@ const About = () => {
       icon: "🚴",
       color: "#10b981",
       items: [
-        { name: "Cycling", icon: <FaBicycle />, color: "#f97316" },
+        
         { name: "Beach Access", icon: <FaUmbrellaBeach />, color: "#fbbf24" },
       ]
     }
@@ -488,8 +486,8 @@ const About = () => {
           {/* Animated Stats */}
           <div className={`mt-16 grid grid-cols-2 md:grid-cols-4 gap-6 ${mounted ? 'animate-fadeInUp delay-1000' : 'opacity-0'}`}>
             {[
-              { icon: <FaBed className="text-2xl" />, value: "24", label: "Rooms", color: "blue" },
-              { icon: <FaUsers className="text-2xl" />, value: "50+", label: "Happy Guests", color: "purple" },
+              { icon: <FaBed className="text-2xl" />, value: "7+", label: "Rooms", color: "blue" },
+              { icon: <FaUsers className="text-2xl" />, value: "1000+", label: "Happy Guests", color: "purple" },
               { icon: <FaAward className="text-2xl" />, value: "4.8", label: "Rating", color: "green" },
               { icon: <FaClock className="text-2xl" />, value: "24/7", label: "Service", color: "orange" }
             ].map((stat, index) => (
@@ -538,7 +536,7 @@ const About = () => {
 
           {/* WhatsApp Button */}
           <a
-            href="https://wa.me/917219236054"
+            href="https://wa.me/7249171196"
             target="_blank"
             rel="noopener noreferrer"
             className="fixed bottom-6 right-6 z-40 animate-float animate-scaleIn transition-all-300 hover-grow"
@@ -555,7 +553,7 @@ const About = () => {
           </a>
         </>
       )}
-      <Footer />
+     
     </div>
   );
 };

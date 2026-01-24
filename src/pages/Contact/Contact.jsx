@@ -10,7 +10,7 @@ import {
   FaWhatsapp,
   FaPhoneAlt
 } from 'react-icons/fa';
-import Footer from '../../common/Footer/Footer.jsx';
+
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -150,15 +150,15 @@ const Contact = () => {
       index: 0
     },
     {
-      icon: <FaPhone className="text-2xl" />,
-      title: 'Phone Number',
-      details: ['+91 98765 43210'],
-      index: 1
-    },
+  icon: <FaPhone className="text-2xl" />,
+  title: 'Phone Number',
+  details: ['+91 7249171196', '+91 89993 58172'],
+  index: 2
+},
     {
       icon: <FaEnvelope className="text-2xl" />,
       title: 'Email Address',
-      details: ['info@clarescove.com'],
+      details: ['clarescovegoa@gmail.com'],
       index: 2
     },
   ];
@@ -506,12 +506,8 @@ const Contact = () => {
                   >
                     <option value="General Inquiry">General Inquiry</option>
                     <option value="Room Booking">Room Booking</option>
-                    <option value="Pricing Information">Pricing Information</option>
-                    <option value="Technical Support">Technical Support</option>
                     <option value="Feedback">Feedback</option>
-                    <option value="Partnership">Partnership</option>
-                    <option value="Event Booking">Event Booking</option>
-                  </select>
+                   </select>
                 </div>
               </div>
 
@@ -541,7 +537,7 @@ const Contact = () => {
               <button
                 type="button"
                 onClick={() => {
-                  const phoneNumber = "7219236054";
+                  const phoneNumber = "8999358172";
                   const message = encodeURIComponent("Hello! I would like to know more about your services.");
                   window.open(`https://wa.me/91${phoneNumber}?text=${message}`, "_blank");
                 }}
@@ -555,7 +551,7 @@ const Contact = () => {
               <button
                 type="button"
                 onClick={() => {
-                  const phoneNumber = "7219236054";
+                  const phoneNumber = "7249171196";
                   const message = encodeURIComponent("Hello! I would like to know more about your services.");
                   window.open(`https://wa.me/91${phoneNumber}?text=${message}`, "_blank");
                 }}
@@ -606,7 +602,7 @@ const Contact = () => {
 
           {/* WhatsApp Button */}
           <a
-            href="https://wa.me/917219236054"
+            href="https://wa.me/7249171196"
             target="_blank"
             rel="noopener noreferrer"
             className="fixed bottom-6 right-6 z-40 animate-float animate-scaleIn transition-all-300 hover-grow"
@@ -624,7 +620,6 @@ const Contact = () => {
         </>
       )}
 
-      <Footer />
     </div>
   );
 };

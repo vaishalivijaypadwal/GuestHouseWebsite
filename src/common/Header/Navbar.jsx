@@ -13,7 +13,9 @@ import {
   FaCalendarAlt,
   FaWhatsapp,
   FaBars,
-  FaTimes
+  FaTimes,
+  FaCamera,
+  FaMapMarkedAlt  // Import for the Virtual Tour icon
 } from 'react-icons/fa';
 
 const Navbar = () => {
@@ -35,7 +37,8 @@ const Navbar = () => {
         { path: '/rooms', label: 'Rooms & Suites', icon: <FaBed className="mr-2" /> },
         { path: '/dining', label: 'Dining', icon: <FaUtensils className="mr-2" /> },
         { path: '/spa', label: 'Spa & Wellness', icon: <FaSpa className="mr-2" /> },
-        { path: '/gallery', label: 'Gallery', icon: <FaImages className="mr-2" /> },
+        { path: '/gallery', label: 'Photo Gallery', icon: <FaImages className="mr-2" /> },
+        { path: '/virtual-tour', label: '360° Virtual Tour', icon: <FaMapMarkedAlt className="mr-2" /> }, // Added Virtual Tour
       ]
     },
     { path: '/gallery', label: 'Gallery', icon: <FaImages className="mr-2" /> },
@@ -79,16 +82,27 @@ const Navbar = () => {
           
           {/* Logo */}
           <div className="flex items-center">
-            <Link to="/" className="flex items-center space-x-3">
-              <div className="text-3xl font-bold text-white">
-                <span className={`${isScrolled ? 'text-blue-600' : 'text-white'}`}>Clares</span>
-                <span className="text-blue-400">Cove</span>
-              </div>
-              <span className={`text-xs ${isScrolled ? 'bg-blue-600 text-white' : 'bg-white/20 text-white'} px-2 py-1 rounded backdrop-blur-sm`}>
-                Guest House
-              </span>
-            </Link>
-          </div>
+  <Link to="/" className="flex items-center space-x-3">
+    {/* Logo Image */}
+    <img 
+      src="/images/logo.jpg" 
+      alt="Clares Cove Guest House Logo"
+      className={`h-10 w-10 md:h-12 md:w-12 object-contain rounded-full border ${isScrolled ? 'border-blue-100' : 'border-white/30'}`}
+      onError={(e) => {
+        e.target.onerror = null;
+        e.target.style.display = 'none';
+        // Fallback to text if image fails to load
+      }}
+    />
+    <div className="text-3xl font-bold text-white">
+      <span className={`${isScrolled ? 'text-blue-600' : 'text-white'}`}>Clares</span>
+      <span className="text-blue-400">Cove</span>
+    </div>
+    <span className={`text-xs ${isScrolled ? 'bg-blue-600 text-white' : 'bg-white/20 text-white'} px-2 py-1 rounded backdrop-blur-sm`}>
+      Guest House
+    </span>
+  </Link>
+</div>
 
           {/* Desktop Navigation */}
           <nav className="hidden lg:block">
@@ -112,7 +126,7 @@ const Navbar = () => {
                           <Link
                             key={itemIndex}
                             to={item.path}
-                            className="flex items-center px-6 py-4 hover:bg-blue-50 transition-all duration-300 group"
+                            className="flex items-center px-6 py-4 hover:bg-blue-50 transition-all duration-300 group relative"
                             onClick={() => setActiveDropdown(null)}
                           >
                             <div className="text-blue-600 group-hover:scale-110 transition-transform duration-300">
@@ -121,6 +135,13 @@ const Navbar = () => {
                             <span className="text-gray-700 group-hover:text-blue-600 font-medium">
                               {item.label}
                             </span>
+                            
+                            {/* Special badge for Virtual Tour */}
+                            {item.path === '/virtual-tour' && (
+                              <span className="ml-2 px-2 py-1 text-xs bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-full animate-pulse">
+                                NEW
+                              </span>
+                            )}
                           </Link>
                         ))}
                       </div>
@@ -212,11 +233,18 @@ const Navbar = () => {
                           <Link
                             key={itemIndex}
                             to={item.path}
-                            className="flex items-center px-10 py-3 text-gray-600 hover:text-blue-600 hover:bg-blue-50 transition-colors duration-300"
+                            className="flex items-center px-10 py-3 text-gray-600 hover:text-blue-600 hover:bg-blue-50 transition-colors duration-300 group"
                             onClick={() => setIsMobileMenuOpen(false)}
                           >
                             {item.icon}
-                            {item.label}
+                            <span className="flex items-center">
+                              {item.label}
+                              {item.path === '/virtual-tour' && (
+                                <span className="ml-2 px-2 py-1 text-xs bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-full">
+                                  NEW
+                                </span>
+                              )}
+                            </span>
                           </Link>
                         ))}
                       </div>
