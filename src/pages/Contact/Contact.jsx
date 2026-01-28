@@ -146,7 +146,7 @@ const Contact = () => {
     {
       icon: <FaMapMarkerAlt className="text-2xl" />,
       title: 'Our Location',
-      details: ['Holiday St, Gauravaddo, Calangute, Goa 403516'],
+      details: ['Calangute, Goa 403516'],
       index: 0
     },
     {

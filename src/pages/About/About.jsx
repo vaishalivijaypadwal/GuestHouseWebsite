@@ -328,9 +328,11 @@ const About = () => {
                 {/* Content paragraphs with staggered animation */}
                 <div className="space-y-6">
                   {[
-                    "Nestled in the serene locale of Varca, South Goa, Clares Cove Guest House offers the perfect blend of traditional Goan hospitality and modern comforts.",
-                    "Located just 28 km from Goa Dabolim International Airport, 9 km from Madgaon Railway Station, and 10 km from Margao Bus Terminal, we provide easy access to all major transportation hubs.",
-                    "Our property is designed to offer a relaxed and comfortable stay, complete with a range of facilities including front desk service, secure parking, and round-the-clock room service.",
+                    "From what is visible, the guest house is located at coordinates 15.5332757, 73.7604081, which places it along the scenic coastline of Goa, India.",
+                    "From what is visible, the guest house is located at coordinates 15.5332757, 73.7604081, which places it along the scenic coastline of Goa, India.'",
+                    "For the most accurate and up-to-date information, we recommend opening the link directly in Google Maps, where you can view photos, reviews, directions, and contact details."
+
+
                     
                   ].map((paragraph, index) => (
                     <p 
@@ -356,13 +358,13 @@ const About = () => {
                     <div className="relative overflow-hidden">
                       <img
                         src="/images/about1.jpg"  
-                        alt="Clares Cove Guest House Main Building"
+                        alt=""
                         className="w-full h-64 object-cover transform group-hover:scale-110 transition-transform duration-700"
                         onError={handleImageError}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-all-300"></div>
                       <div className="absolute bottom-4 left-4 text-white opacity-0 group-hover:opacity-100 transition-all-300 delay-100">
-                        <p className="text-sm font-medium">Main Building</p>
+                      
                       </div>
                     </div>
                   </div>
@@ -371,13 +373,13 @@ const About = () => {
                     <div className="relative overflow-hidden">
                       <img
                         src="/images/about2.jpg"  
-                        alt="Swimming Pool Area"
+                        alt=""
                         className="w-full h-48 object-cover transform group-hover:scale-110 transition-transform duration-700"
                         onError={handleImageError}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-all-300"></div>
                       <div className="absolute bottom-4 left-4 text-white opacity-0 group-hover:opacity-100 transition-all-300 delay-100">
-                        <p className="text-sm font-medium">Swimming Pool</p>
+                       
                       </div>
                     </div>
                   </div>
@@ -389,13 +391,13 @@ const About = () => {
                     <div className="relative overflow-hidden">
                       <img
                         src="/images/about3.jpg"  
-                        alt="Garden Area"
+                        alt=""
                         className="w-full h-48 object-cover transform group-hover:scale-110 transition-transform duration-700"
                         onError={handleImageError}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-all-300"></div>
                       <div className="absolute bottom-4 left-4 text-white opacity-0 group-hover:opacity-100 transition-all-300 delay-100">
-                        <p className="text-sm font-medium">Garden Area</p>
+                        
                       </div>
                     </div>
                   </div>
@@ -404,13 +406,13 @@ const About = () => {
                     <div className="relative overflow-hidden">
                       <img
                         src="/images/about4.jpg"  
-                        alt="Room Interior"
+                        alt=""
                         className="w-full h-48 object-cover transform group-hover:scale-110 transition-transform duration-700"
                         onError={handleImageError}
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-all-300"></div>
                       <div className="absolute bottom-4 left-4 text-white opacity-0 group-hover:opacity-100 transition-all-300 delay-100">
-                        <p className="text-sm font-medium">Room Interior</p>
+                     
                       </div>
                     </div>
                   </div>

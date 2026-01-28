@@ -24,11 +24,23 @@ const Header = () => {
   return (
     <header className="sticky top-0 z-50 bg-white shadow-md">
       <div className="container mx-auto px-4">
-        <div className="flex items-center justify-between h-16">
+        <div className="flex items-center justify-between h-28">
           {/* Logo */}
-          <Link to="/" className="text-xl font-bold text-blue-600">
-            Clares Cove Guest House
-          </Link>
+        <div className="mb-6">
+                      <Link to="/" className="inline-flex items-center">
+                        {/* Logo Image */}
+                        <img 
+          src="/images/logo.jpg" 
+          alt="Clares Cove Guest House Logo"
+          className="h-28 w-auto mr-3 object-contain"
+          onError={(e) => {
+            e.target.onerror = null;
+            e.target.style.display = 'none';
+          }}
+        />
+        
+                      </Link>
+                    </div>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex space-x-8">

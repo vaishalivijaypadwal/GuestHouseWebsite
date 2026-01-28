@@ -28,15 +28,13 @@ const Footer = () => {
                 <img 
   src="/images/logo.jpg" 
   alt="Clares Cove Guest House Logo"
-  className="h-16 w-30 mr-3 object-contain rounded-md border border-gray-300"
+  className="h-28 w-auto mr-3 object-contain"
   onError={(e) => {
     e.target.onerror = null;
     e.target.style.display = 'none';
   }}
 />
 
-
-               
               </Link>
             </div>
             
@@ -162,8 +160,7 @@ const Footer = () => {
                 <div>
                   <h4 className="font-bold text-white mb-1">Our Location</h4>
                   <p className="text-gray-300 text-sm">
-                    Holiday St, Gauravaddo, Calangute,<br />
-                    Goa 403516, India
+                    Calangute, Goa 403516
                   </p>
                   <a 
                     href="https://maps.google.com/?q=Clares+Cove+Guest+House+Goa"

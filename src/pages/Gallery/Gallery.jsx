@@ -1,53 +1,87 @@
 import React, { useState, useEffect, useRef } from 'react';
 
-
 const Gallery = () => {
   /* ================= ROOM DATA WITH CATEGORIES ================= */
   const roomImages = [
     { 
       id: 1, 
-      category: 'interior',
-      title: 'Modern Living Room',
+      category: 'rooms',
+      imageName: 'room1'
     },
     { 
       id: 2, 
-      category: 'interior',
-      title: 'Cozy Bedroom',
+      category: 'rooms',
+      imageName: 'room2'
     },
     { 
       id: 3, 
-      category: 'interior',
-      title: 'Minimalist Kitchen',
+      category: 'rooms',
+      imageName: 'room3'
     },
     { 
       id: 4, 
-      category: 'interior',
-      title: 'Luxury Bathroom',
+      category: 'rooms',
+      imageName: 'room4'
     },
     { 
       id: 5, 
       category: 'exterior',
-      title: 'Garden View',
+      imageName: 'exterior1'
     },
     { 
       id: 6, 
       category: 'exterior',
-      title: 'Pool Area',
+      imageName: 'exterior2'
     },
     { 
       id: 7, 
       category: 'exterior',
-      title: 'Front Entrance',
+      imageName: 'exterior3'
     },
     { 
       id: 8, 
       category: 'exterior',
-      title: 'Patio Lounge',
+      imageName: 'exterior4'
     },
     { 
       id: 9, 
-      category: 'interior',
-      title: 'Home Office',
+      category: 'rooms',
+      imageName: 'room5'
+    },
+    { 
+      id: 10, 
+      category: 'rooms',
+      imageName: 'room6'
+    },
+    { 
+      id: 11, 
+      category: 'rooms',
+      imageName: 'room7'
+    },
+    { 
+      id: 12, 
+      category: 'rooms',
+      imageName: 'room8'
+    },
+    { 
+      id: 13, 
+      category: 'rooms',
+      imageName: 'room9'
+    },
+    { 
+      id: 14, 
+      category: 'bath',
+      imageName: 'bath1'
+    },
+    { 
+      id: 15, 
+      category: 'bath',
+      imageName: 'bath2'
+    },
+    { 
+      id: 16, 
+      category: 'exterior',
+      imageName: 'exterior5'
     }
   ];
 
@@ -69,11 +103,11 @@ const Gallery = () => {
     setLoadedImages(prev => ({ ...prev, [id]: true }));
   };
 
-  const getImageSrc = (id) => {
+  const getImageSrc = (imageName, id) => {
     if (imageErrors[id]) {
       return "https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80";
     }
-    return `/images/room${id}.jpg`;
+    return `/images/${imageName}.jpg`;
   };
 
   /* ================= FILTER FUNCTIONS ================= */
@@ -190,8 +224,8 @@ const Gallery = () => {
 
   const filteredImages = getFilteredImages();
 
- return (
-  <div className="min-h-screen bg-white">
+  return (
+    <div className="min-h-screen bg-white">
       {/* Animated Background Pattern */}
       <div className="fixed inset-0 z-0 opacity-5">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_1px_1px,rgba(0,0,0,0.1)_1px,transparent_0)] bg-[length:40px_40px] animate-[pulse_20s_ease-in-out_infinite]"></div>
@@ -213,7 +247,7 @@ const Gallery = () => {
             </p>
             
             <div className="flex flex-wrap justify-center gap-2 md:gap-3">
-              {['all', 'exterior', 'interior'].map((filter) => (
+              {['all', 'rooms', 'exterior', 'bath'].map((filter) => (
                 <button
                   key={filter}
                   className={`
@@ -222,9 +256,11 @@ const Gallery = () => {
                     ${activeFilter === filter
                       ? filter === 'all' 
                         ? 'bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-lg shadow-blue-500/25'
+                        : filter === 'rooms'
+                        ? 'bg-gradient-to-r from-purple-600 to-purple-500 text-white shadow-lg shadow-purple-500/25'
                         : filter === 'exterior'
                         ? 'bg-gradient-to-r from-green-600 to-green-500 text-white shadow-lg shadow-green-500/25'
-                        : 'bg-gradient-to-r from-purple-600 to-purple-500 text-white shadow-lg shadow-purple-500/25'
+                        : 'bg-gradient-to-r from-teal-600 to-teal-500 text-white shadow-lg shadow-teal-500/25'
                       : 'bg-gray-100 text-gray-700 hover:bg-gray-200 hover:shadow-md'
                     }
                   `}
@@ -282,8 +318,8 @@ const Gallery = () => {
                       )}
                       
                       <img
-                        src={getImageSrc(room.id)}
-                        alt={room.title}
+                        src={getImageSrc(room.imageName, room.id)}
+                        alt="Gallery image"
                         className={`
                           w-full h-full object-cover transform transition-all duration-700
                           group-hover:scale-110
@@ -299,31 +335,6 @@ const Gallery = () => {
                       
                       {/* Gradient Overlay */}
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500"></div>
-                      
-                      {/* Category Badge */}
-                      <div className="absolute top-4 left-4">
-                        <span className={`
-                          px-3 py-1 rounded-full text-xs font-medium backdrop-blur-sm
-                          ${room.category === 'interior'
-                            ? 'bg-purple-600/20 text-purple-700'
-                            : 'bg-green-600/20 text-green-700'
-                          }
-                        `}>
-                          {room.category}
-                        </span>
-                      </div>
-                      
-                      {/* Hover View Text */}
-                      <div className="absolute top-4 right-4 transform translate-x-4 opacity-0 group-hover:translate-x-0 group-hover:opacity-100 transition-all duration-500">
-                        <div className="px-4 py-2 bg-white/20 backdrop-blur-sm rounded-full">
-                          <span className="text-white font-medium">View Details →</span>
-                        </div>
-                      </div>
-                      
-                      {/* Title & Description */}
-                      <div className="absolute bottom-0 left-0 right-0 p-6 transform translate-y-full group-hover:translate-y-0 transition-all duration-500">
-                        <h3 className="text-xl font-bold text-white mb-2">{room.title}</h3>
-                      </div>
                     </div>
                   </div>
                 ))}
@@ -380,35 +391,17 @@ const Gallery = () => {
                 {/* Main Image */}
                 <div className={`relative ${isTransitioning ? 'opacity-70 scale-95' : 'opacity-100 scale-100'} transition-all duration-500`}>
                   <img
-                    src={getImageSrc(filteredImages[carouselIndex]?.id)}
-                    alt={filteredImages[carouselIndex]?.title}
+                    src={getImageSrc(filteredImages[carouselIndex]?.imageName, filteredImages[carouselIndex]?.id)}
+                    alt="Gallery image"
                     className="w-full h-[50vh] sm:h-[60vh] md:h-[70vh] object-contain rounded-lg shadow-2xl"
                     onError={(e) => handleImageError(e, filteredImages[carouselIndex]?.id)}
                   />
                   
-                  {/* Image Info Overlay */}
+                  {/* Image Counter */}
                   <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/90 via-black/70 to-transparent p-4 sm:p-6 rounded-b-lg">
-                    <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center">
-                      <div>
-                        <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">
-                          {filteredImages[carouselIndex]?.title}
-                        </h3>
-                        <div className="flex items-center mt-2">
-                          <span className={`
-                            px-3 py-1 rounded-full text-xs font-medium mr-3
-                            ${filteredImages[carouselIndex]?.category === 'interior'
-                              ? 'bg-purple-500/30 text-purple-300'
-                              : 'bg-green-500/30 text-green-300'
-                            }
-                          `}>
-                            {filteredImages[carouselIndex]?.category}
-                          </span>
-                        </div>
-                      </div>
-                      <div className="mt-4 sm:mt-0">
-                        <div className="text-white text-lg sm:text-xl font-medium px-4 py-2 bg-black/30 rounded-full">
-                          {carouselIndex + 1} / {filteredImages.length}
-                        </div>
+                    <div className="flex justify-center">
+                      <div className="text-white text-lg sm:text-xl font-medium px-4 py-2 bg-black/30 rounded-full">
+                        {carouselIndex + 1} / {filteredImages.length}
                       </div>
                     </div>
                   </div>
@@ -431,7 +424,7 @@ const Gallery = () => {
                       aria-label={`Go to image ${index + 1}`}
                     >
                       <img
-                        src={getImageSrc(image.id)}
+                        src={getImageSrc(image.imageName, image.id)}
                         alt={`Thumbnail ${index + 1}`}
                         className="w-full h-full object-cover"
                       />
@@ -453,23 +446,23 @@ const Gallery = () => {
           </div>
         )}
         
- {/* WhatsApp Button */}
-          <a
-            href="https://wa.me/7249171196"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="fixed bottom-6 right-6 z-40 animate-float animate-scaleIn transition-all-300 hover-grow"
-            style={{ animationDelay: '900ms' }}
-          >
-            <div className="relative">
-              <div className="absolute inset-0 bg-green-500 rounded-full animate-ping opacity-20" />
-              <img
-                src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
-                alt="WhatsApp"
-                className="w-14 h-14 drop-shadow-2xl transition-transform duration-300 hover:scale-110"
-              />
-            </div>
-          </a>
+        {/* WhatsApp Button */}
+        <a
+          href="https://wa.me/7249171196"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="fixed bottom-6 right-6 z-40 animate-float animate-scaleIn transition-all-300 hover-grow"
+          style={{ animationDelay: '900ms' }}
+        >
+          <div className="relative">
+            <div className="absolute inset-0 bg-green-500 rounded-full animate-ping opacity-20" />
+            <img
+              src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg"
+              alt="WhatsApp"
+              className="w-14 h-14 drop-shadow-2xl transition-transform duration-300 hover:scale-110"
+            />
+          </div>
+        </a>
         
       </div>
 

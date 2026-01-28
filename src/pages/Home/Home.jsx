@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { 
   FaBed, 
   FaSwimmingPool, 
@@ -21,10 +21,258 @@ import {
   FaMapMarkerAlt,
   FaVideo,
   FaCreditCard,
-  FaWhatsapp
+  FaWhatsapp,
+  FaQuoteLeft,
+  FaQuoteRight
 } from 'react-icons/fa';
 
+// Import or define Testimonials component here
+const TestimonialsSection = () => {
+  const [currentTestimonial, setCurrentTestimonial] = useState(0);
+  const [isAnimating, setIsAnimating] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef(null);
 
+  const testimonials = [
+    {
+      id: 1,
+      name: "Priya Sharma",
+      role: "Software Engineer",
+      rating: 5,
+      text: "Loved the hospitality! The hotel offers great amenities, and the complimentary WiFi was super fast. A great place to unwind after work. The staff was incredibly helpful and made our stay memorable.",
+    },
+    {
+      id: 2,
+      name: "Rajesh Patel",
+      role: "Business Owner",
+      rating: 5,
+      text: "Perfect location with amazing beach views. The rooms were spacious and clean. The breakfast was delicious with local Goan specialties. Will definitely visit again!",
+    },
+    {
+      id: 3,
+      name: "Anita Desai",
+      role: "Travel Blogger",
+      rating: 4,
+      text: "Beautiful property with authentic Goan architecture. Loved the pool area and the friendly staff. The sunset views from the balcony were absolutely breathtaking.",
+    },
+    {
+      id: 4,
+      name: "Vikram Singh",
+      role: "Family Vacationer",
+      rating: 5,
+      text: "Perfect for families! Kids loved the pool and the play area. The staff arranged special meals for our children. The location is close to all major attractions.",
+    }
+  ];
+
+  // Auto rotation of testimonials
+  useEffect(() => {
+    const interval = setInterval(() => {
+      nextTestimonial();
+    }, 5000);
+    return () => clearInterval(interval);
+  }, [currentTestimonial]);
+
+  // Intersection Observer for animation trigger
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold: 0.2 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => {
+      if (sectionRef.current) {
+        observer.unobserve(sectionRef.current);
+      }
+    };
+  }, []);
+
+  const nextTestimonial = () => {
+    if (!isAnimating) {
+      setIsAnimating(true);
+      setCurrentTestimonial((prev) => 
+        prev === testimonials.length - 1 ? 0 : prev + 1
+      );
+      setTimeout(() => setIsAnimating(false), 500);
+    }
+  };
+
+  const prevTestimonial = () => {
+    if (!isAnimating) {
+      setIsAnimating(true);
+      setCurrentTestimonial((prev) => 
+        prev === 0 ? testimonials.length - 1 : prev - 1
+      );
+      setTimeout(() => setIsAnimating(false), 500);
+    }
+  };
+
+  const goToTestimonial = (index) => {
+    if (!isAnimating) {
+      setIsAnimating(true);
+      setCurrentTestimonial(index);
+      setTimeout(() => setIsAnimating(false), 500);
+    }
+  };
+
+  const renderStars = (rating) => {
+    return [...Array(5)].map((_, index) => (
+      <FaStar
+        key={index}
+        className={`text-2xl ${index < rating ? "text-yellow-400" : "text-gray-300"}`}
+      />
+    ));
+  };
+
+  return (
+    <section 
+      ref={sectionRef}
+      className="relative bg-gradient-to-b from-white via-gray-50 to-blue-50 py-20 overflow-hidden"
+    >
+      {/* Background decorative elements */}
+      <div className="absolute top-0 left-0 w-full h-32 bg-gradient-to-r from-blue-500/10 to-purple-500/10 transform -skew-y-3"></div>
+      
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+        
+        {/* Heading with animation */}
+        <div className={`text-center mb-16 ${isVisible ? 'animate-fadeInUp' : 'opacity-0'}`}>
+          
+          
+          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-4">
+            What Our <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Guests Say</span>
+          </h2>
+          
+          <div className="w-24 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto mb-6 rounded-full"></div>
+          
+          <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            Discover why travelers from around the world choose Clares Cove for their perfect getaway
+          </p>
+        </div>
+
+        {/* Testimonials Carousel */}
+        <div className="relative max-w-6xl mx-auto">
+          {/* Navigation Buttons */}
+          <button
+            onClick={prevTestimonial}
+            className="absolute left-0 top-1/2 transform -translate-y-1/2 -translate-x-4 md:-translate-x-8 z-20 bg-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 hover:bg-blue-50 group"
+            aria-label="Previous testimonial"
+          >
+            <FaChevronLeft className="text-gray-700 group-hover:text-blue-600 text-xl" />
+          </button>
+          
+          <button
+            onClick={nextTestimonial}
+            className="absolute right-0 top-1/2 transform -translate-y-1/2 translate-x-4 md:translate-x-8 z-20 bg-white p-3 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-110 hover:bg-blue-50 group"
+            aria-label="Next testimonial"
+          >
+            <FaChevronRight className="text-gray-700 group-hover:text-blue-600 text-xl" />
+          </button>
+
+          {/* Testimonial Card */}
+          <div className={`bg-white rounded-2xl shadow-2xl overflow-hidden transition-all duration-500 ${
+            isVisible ? 'animate-slideUp' : 'opacity-0 translate-y-10'
+          }`}>
+            <div className="grid md:grid-cols-3 gap-0">
+              {/* Left Column - Guest Info (Simplified) */}
+              <div className="md:col-span-1 bg-gradient-to-br from-blue-600 to-purple-600 p-8 md:p-12 flex flex-col justify-center items-center">
+                <div className={`transition-all duration-700 ${isAnimating ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}>
+                  <div className="flex flex-col items-center text-center">
+                    {/* Quote Icon instead of image */}
+                    <div className="relative mb-8">
+                      <div className="w-20 h-20 bg-white/20 rounded-full flex items-center justify-center">
+                        <FaQuoteLeft className="text-white text-3xl" />
+                      </div>
+                    </div>
+                    
+                    <h3 className="text-3xl font-bold text-white mb-3">
+                      {testimonials[currentTestimonial].name}
+                    </h3>
+                    
+                    <p className="text-blue-100 mb-6 text-lg">{testimonials[currentTestimonial].role}</p>
+                    
+                    {/* Star Rating */}
+                    <div className="flex items-center gap-2 mb-8">
+                      {renderStars(testimonials[currentTestimonial].rating)}
+                    </div>
+                    
+                    {/* Guest Info Card */}
+                    
+                  </div>
+                </div>
+              </div>
+
+              {/* Right Column - Testimonial Text */}
+              <div className="md:col-span-2 p-8 md:p-12 flex flex-col justify-center relative">
+                <div className="absolute top-8 right-8 text-blue-200 opacity-20">
+                  <FaQuoteRight className="text-6xl" />
+                </div>
+                
+                <div className={`transition-all duration-700 ${isAnimating ? 'opacity-0 translate-x-4' : 'opacity-100 translate-x-0'}`}>
+                  <p className="text-2xl md:text-3xl text-gray-800 mb-8 leading-relaxed italic">
+                    "{testimonials[currentTestimonial].text}"
+                  </p>
+                  
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                      <div className="flex items-center gap-2">
+                        <div className="w-10 h-1 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full"></div>
+                        <div className="w-6 h-1 bg-gray-300 rounded-full"></div>
+                        <div className="w-4 h-1 bg-gray-300 rounded-full"></div>
+                      </div>
+                    </div>
+                    
+                    <div className="text-gray-500">
+                      <span className="font-bold text-blue-600">{currentTestimonial + 1}</span>
+                      <span className="mx-2">/</span>
+                      <span>{testimonials.length}</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Dots Navigation */}
+          <div className="flex justify-center mt-8 gap-3">
+            {testimonials.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => goToTestimonial(index)}
+                className={`transition-all duration-300 rounded-full ${
+                  index === currentTestimonial
+                    ? 'w-10 bg-gradient-to-r from-blue-500 to-purple-500'
+                    : 'w-3 bg-gray-300 hover:bg-gray-400'
+                } h-3`}
+                aria-label={`Go to testimonial ${index + 1}`}
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* Trust Indicators */}
+        <div className={`grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 ${isVisible ? 'animate-fadeIn delay-300' : 'opacity-0'}`}>
+          {[
+           
+          ].map((item, index) => (
+            <div 
+              key={index}
+              className="bg-white p-6 rounded-xl shadow-md hover:shadow-lg transition-all duration-300 hover:translate-y-[-4px] text-center"
+            >
+             
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
 const Home = () => {
   const navigate = useNavigate();
   const [mounted, setMounted] = useState(false);
@@ -34,99 +282,80 @@ const Home = () => {
     {
       id: 1,
       title: "Luxury Beachfront Experience",
-      description: "Experience the ultimate beachfront luxury with stunning ocean views",
+      
       src: "/images/home1.jpg"
     },
     {
       id: 2,
       title: "Tropical Paradise Awaits",
-      description: "Immerse yourself in the tropical beauty of Goa's coastline",
+     
       src: "/images/home2.jpg"
     },
     {
       id: 3,
       title: "Sunset Views",
-      description: "Witness breathtaking sunsets over the Arabian Sea",
+      
       src: "/images/home3.jpg"
     },
     {
       id: 4,
       title: "Gourmet Dining",
-      description: "Savor authentic Goan cuisine prepared by our master chefs",
+    
       src: "/images/home4.jpg"
     },
     {
       id: 5,
       title: "Luxury Poolside",
-      description: "Relax by our Olympic-sized infinity pool with panoramic views",
+     
       src: "/images/home5.jpg"
     },
     {
       id: 6,
       title: "Spa & Wellness",
-      description: "Rejuvenate with our traditional Ayurvedic treatments",
+      
       src: "/images/home6.jpg"
     },
+    
     {
       id: 7,
-      title: "Cultural Experiences",
-      description: "Discover Goa's rich heritage and vibrant culture",
-      src: "/images/home7.jpg"
-    },
-    {
-      id: 8,
       title: "Family Friendly",
-      description: "Perfect getaway for families with activities for all ages",
+      
       src: "/images/home8.jpg"
-    },
-    {
-      id: 9,
-      title: "Romantic Getaways",
-      description: "Create unforgettable memories in our romantic suites",
-      src: "/images/home9.jpg"
-    }
+    }   
   ];
 
   // Gallery images
   const galleryImages = [
     { 
       id: 1, 
-      
       src: "/images/gallery1.jpg"
     },
     { 
       id: 2, 
-     
       src: "/images/gallery2.jpg"
     },
     { 
       id: 3, 
-     
       src: "/images/gallery3.jpg"
     },
     { 
       id: 4, 
-      
       src: "/images/gallery4.jpg"
     },
     { 
       id: 5, 
-     
       src: "/images/gallery5.jpg"
     },
     { 
       id: 6, 
-      
       src: "/images/gallery6.jpg"
     },
     { 
       id: 7, 
-      
       src: "/images/gallery7.jpg"
     },
     { 
       id: 8, 
-     
       src: "/images/gallery8.jpg"
     }
   ];
@@ -148,63 +377,36 @@ const Home = () => {
 
   
   // Feature highlights
-const features = [
-  { 
-    icon: <FaBed className="text-4xl" />, 
-    title: "Family Comfortable", 
-    count: "20+ Rooms" 
-  },
-  { 
-    icon: <FaWifi className="text-4xl" />, 
-    title: "Free WiFi", 
-    count: "High Speed" 
-  },
-  { 
-    icon: <FaCar className="text-4xl" />, 
-    title: "Parking", 
-    count: "Secure" 
-  },
-  { 
-    icon: <FaUmbrellaBeach className="text-4xl" />, 
-    title: "Beach Access", 
-    count: "Direct Access" 
-  },
-  { 
-    icon: <FaVideo className="text-4xl" />,  // Import FaVideo from react-icons/fa
-    title: "CCTV Security", 
-    count: "24/7 Surveillance" 
-  },
-  { 
-    icon: <FaCreditCard className="text-4xl" />,  // Import FaCreditCard from react-icons/fa
-    title: "Online Payment", 
-    count: "Multiple Options" 
-  }
-];
-
-  // Stats data
-  const stats = [
-    { number: "15+", label: "Years of Excellence" },
-    { number: "10k+", label: "Happy Guests" },
-    { number: "20+", label: "Premium Rooms" },
-    { number: "24/7", label: "Customer Support" }
-  ];
-
-  // Testimonials data
-  const testimonials = [
-    {
-      name: "Priya Sharma",
-      text: "Loved the hospitality! Great amenities and super-fast WiFi. Will definitely visit again!",
-      rating: 5
+  const features = [
+    { 
+      icon: <FaBed className="text-4xl" />, 
+      title: "Family Comfortable", 
+      count: "20+ Rooms" 
     },
-    {
-      name: "Rajesh Kumar",
-      text: "Perfect location, amazing service. The beachfront view from our room was breathtaking.",
-      rating: 5
+    { 
+      icon: <FaWifi className="text-4xl" />, 
+      title: "Free WiFi", 
+      count: "High Speed" 
     },
-    {
-      name: "Anjali Patel",
-      text: "Family-friendly atmosphere with excellent food. Kids loved the pool!",
-      rating: 5
+    { 
+      icon: <FaCar className="text-4xl" />, 
+      title: "Parking", 
+      count: "Secure" 
+    },
+    { 
+      icon: <FaUmbrellaBeach className="text-4xl" />, 
+      title: "Beach Access", 
+      count: "Direct Access" 
+    },
+    { 
+      icon: <FaVideo className="text-4xl" />,
+      title: "CCTV Security", 
+      count: "24/7 Surveillance" 
+    },
+    { 
+      icon: <FaCreditCard className="text-4xl" />,
+      title: "Online Payment", 
+      count: "Multiple Options" 
     }
   ];
 
@@ -273,7 +475,6 @@ const features = [
       home_5: 'https://images.unsplash.com/photo-1540202403-a2c2908e9c5e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
       home_6: 'https://images.unsplash.com/photo-1544161515-4ab6ce6db874?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
       home_7: 'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
-      home_8: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
       gallery_1: 'https://images.unsplash.com/photo-1566665797739-1674de7a421a?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
       gallery_2: 'https://images.unsplash.com/photo-1540541338287-41700207dee6?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
       gallery_3: 'https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80',
@@ -403,16 +604,6 @@ const features = [
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [selectedImage]);
-
-  // Render star ratings
-  const renderStars = (rating) => {
-    return Array(5).fill(0).map((_, i) => (
-      <FaStar 
-        key={i} 
-        className={`text-sm ${i < rating ? 'text-yellow-400' : 'text-gray-300'}`}
-      />
-    ));
-  };
 
   return (
     <div className="home-page overflow-hidden">
@@ -586,7 +777,7 @@ const features = [
               }`}>
                 <div className="relative group">
                   <img
-                    src="/images/home9.jpg"
+                    src="/images/home7.jpg"
                     alt="Clares Cove Guest House"
                     className="w-full h-72 md:h-100 lg:h-[28rem] object-cover rounded-2xl shadow-2xl transform group-hover:scale-105 transition-transform duration-700"
                     onError={(e) => {
@@ -617,84 +808,81 @@ const features = [
         </div>
       </section>
 
-     {/* Gallery Section */}
-<section 
-  ref={el => sectionRefs.current[1] = el}
-  data-section="gallery"
-  id="gallery"
-  className="py-16 md:py-24 bg-gradient-to-br from-white via-blue-50/50 to-white overflow-hidden"
->
-  <div className="container mx-auto px-4 md:px-8">
-    <div className={`text-center max-w-3xl mx-auto mb-12 transition-all duration-1000 ease-out ${
-      isVisible.gallery 
-        ? 'opacity-100 transform translate-y-0' 
-        : 'opacity-0 transform translate-y-8'
-    }`}>
-      <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
-        Gallery 
-      </h2>
-      <p className="text-xl text-gray-600 mb-8">
-        Explore the beauty of Clares Cove through our curated collection
-      </p>
-    </div>
-
-    {/* Gallery Grid */}
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-      {galleryImages.map((image, index) => (
-        <div
-          key={image.id}
-          className={`relative group overflow-hidden rounded-2xl shadow-lg transition-all duration-700 ease-out ${
+      {/* Gallery Section */}
+      <section 
+        ref={el => sectionRefs.current[1] = el}
+        data-section="gallery"
+        id="gallery"
+        className="py-16 md:py-24 bg-gradient-to-br from-white via-blue-50/50 to-white overflow-hidden"
+      >
+        <div className="container mx-auto px-4 md:px-8">
+          <div className={`text-center max-w-3xl mx-auto mb-12 transition-all duration-1000 ease-out ${
             isVisible.gallery 
               ? 'opacity-100 transform translate-y-0' 
-              : 'opacity-0 transform translate-y-12'
-          }`}
-          style={{
-            transitionDelay: `${index * 100}ms`,
-            height: '300px'
-          }}
-          onMouseEnter={() => setHoveredImage(image.id)}
-          onMouseLeave={() => setHoveredImage(null)}
-          onClick={() => openLightbox(image)}
-        >
-          <div className="relative w-full h-full cursor-pointer">
-            {/* Loading Placeholder */}
-            {!isLoaded[`gallery_${image.id}`] && !imageErrors[`gallery_${image.id}`] && (
-              <div className="absolute inset-0 bg-gradient-to-br from-gray-200 to-gray-300 animate-pulse flex items-center justify-center">
-                <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-blue-500 border-solid"></div>
-              </div>
-            )}
+              : 'opacity-0 transform translate-y-8'
+          }`}>
+            <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
+              Gallery 
+            </h2>
+            <p className="text-xl text-gray-600 mb-8">
+              Explore the beauty of Clares Cove through our curated collection
+            </p>
+          </div>
 
-            {/* Image */}
-            <img
-              src={getImageSrc(image.id, 'gallery')}
-              alt={image.title}
-              className={`w-full h-full object-cover transition-all duration-700 ${
-                hoveredImage === image.id ? 'scale-110' : 'scale-100'
-              } ${isLoaded[`gallery_${image.id}`] ? 'opacity-100' : 'opacity-0'}`}
-              onLoad={() => handleImageLoad(image.id, 'gallery')}
-              onError={(e) => handleImageError(e, image.id, 'gallery')}
-            />
+          {/* Gallery Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            {galleryImages.map((image, index) => (
+              <div
+                key={image.id}
+                className={`relative group overflow-hidden rounded-2xl shadow-lg transition-all duration-700 ease-out ${
+                  isVisible.gallery 
+                    ? 'opacity-100 transform translate-y-0' 
+                    : 'opacity-0 transform translate-y-12'
+                }`}
+                style={{
+                  transitionDelay: `${index * 100}ms`,
+                  height: '300px'
+                }}
+                onMouseEnter={() => setHoveredImage(image.id)}
+                onMouseLeave={() => setHoveredImage(null)}
+                onClick={() => openLightbox(image)}
+              >
+                <div className="relative w-full h-full cursor-pointer">
+                  {/* Loading Placeholder */}
+                  {!isLoaded[`gallery_${image.id}`] && !imageErrors[`gallery_${image.id}`] && (
+                    <div className="absolute inset-0 bg-gradient-to-br from-gray-200 to-gray-300 animate-pulse flex items-center justify-center">
+                      <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-blue-500 border-solid"></div>
+                    </div>
+                  )}
 
-            {/* Overlay with centered text */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500">
-              <div className="absolute inset-0 flex flex-col items-center justify-center p-6 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
-                <h3 className="text-white text-2xl font-bold mb-2 text-center">{image.title}</h3>
-                <p className="text-gray-200 text-sm text-center max-w-xs">{image.description}</p>
-                <div className="mt-4">
-                  <FaExpand className="text-white text-2xl" />
+                  {/* Image */}
+                  <img
+                    src={getImageSrc(image.id, 'gallery')}
+                    alt={image.title}
+                    className={`w-full h-full object-cover transition-all duration-700 ${
+                      hoveredImage === image.id ? 'scale-110' : 'scale-100'
+                    } ${isLoaded[`gallery_${image.id}`] ? 'opacity-100' : 'opacity-0'}`}
+                    onLoad={() => handleImageLoad(image.id, 'gallery')}
+                    onError={(e) => handleImageError(e, image.id, 'gallery')}
+                  />
+
+                  {/* Overlay with centered text */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500">
+                    <div className="absolute inset-0 flex flex-col items-center justify-center p-6 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                      <div className="mt-4">
+                        <FaExpand className="text-white text-2xl" />
+                      </div>
+                    </div>
+                  </div>
+
+                  {/* Shine Effect */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
                 </div>
               </div>
-            </div>
-
-            {/* Shine Effect */}
-            <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent translate-x-[-100%] group-hover:translate-x-[100%] transition-transform duration-1000"></div>
+            ))}
           </div>
         </div>
-      ))}
-    </div>
-    
-  </div>
-</section>
+      </section>
 
       {/* Features Section */}
       <section 
@@ -752,167 +940,168 @@ const features = [
         </div>
       </section>
 
-      
+      {/* Testimonials Section */}
+      <TestimonialsSection />
+
       {/* Contact Section */}
-<section 
-  ref={el => sectionRefs.current[4] = el}
-  data-section="contact"
-  id="contact"
-  className="py-16 md:py-24 bg-gradient-to-r from-blue-900 to-blue-700 text-white overflow-hidden relative"
->
-  {/* Animated background elements */}
-  <div className="absolute top-10 left-10 w-64 h-64 bg-blue-800 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-  <div className="absolute bottom-10 right-10 w-64 h-64 bg-purple-800 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
-  <div className="absolute top-1/2 left-1/4 w-48 h-48 bg-cyan-700 rounded-full mix-blend-multiply filter blur-3xl opacity-15 animate-blob animation-delay-4000"></div>
-  
-  <div className="container mx-auto px-4 md:px-8 relative z-10">
-    <div className={`grid md:grid-cols-2 gap-12 items-center transition-all duration-1000 ease-out ${
-      isVisible.contact 
-        ? 'opacity-100 transform translate-y-0' 
-        : 'opacity-0 transform translate-y-12'
-    }`}>
-      {/* Left Column - Contact Info */}
-      <div className={`space-y-8 transition-all duration-700 ease-out ${
-        isVisible.contact 
-          ? 'opacity-100 transform translate-x-0' 
-          : 'opacity-0 transform -translate-x-8'
-      }`}>
-        <div>
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 animate-gradient bg-gradient-to-r from-white via-orange-300 to-white bg-[length:200%_auto] bg-clip-text text-transparent">
-            Get In Touch With Us Anytime!
-          </h2>
-          <p className="text-blue-100 mb-8 text-lg leading-relaxed animate-fadeInUp">
-            Have questions or need assistance? We're here to help! Contact Clares Cove for bookings, 
-            inquiries, or special requests. Your comfort is our priority.
-          </p>
-        </div>
+      <section 
+        ref={el => sectionRefs.current[4] = el}
+        data-section="contact"
+        id="contact"
+        className="py-16 md:py-24 bg-gradient-to-r from-blue-900 to-blue-700 text-white overflow-hidden relative"
+      >
+        {/* Animated background elements */}
+        <div className="absolute top-10 left-10 w-64 h-64 bg-blue-800 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+        <div className="absolute bottom-10 right-10 w-64 h-64 bg-purple-800 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+        <div className="absolute top-1/2 left-1/4 w-48 h-48 bg-cyan-700 rounded-full mix-blend-multiply filter blur-3xl opacity-15 animate-blob animation-delay-4000"></div>
         
-        <div className="space-y-6">
-          {/* Phone */}
-          <div className={`flex items-start transform transition-all duration-500 hover:translate-x-2 group ${
-            isVisible.contact ? 'animate-fadeInLeft' : 'opacity-0'
-          }`} style={{ animationDelay: '200ms' }}>
-            <div className="bg-blue-800 p-4 rounded-xl mr-4 group-hover:scale-110 group-hover:bg-orange-500 transition-all duration-300">
-              <FaPhone className="text-white text-xl" />
+        <div className="container mx-auto px-4 md:px-8 relative z-10">
+          <div className={`grid md:grid-cols-2 gap-12 items-center transition-all duration-1000 ease-out ${
+            isVisible.contact 
+              ? 'opacity-100 transform translate-y-0' 
+              : 'opacity-0 transform translate-y-12'
+          }`}>
+            {/* Left Column - Contact Info */}
+            <div className={`space-y-8 transition-all duration-700 ease-out ${
+              isVisible.contact 
+                ? 'opacity-100 transform translate-x-0' 
+                : 'opacity-0 transform -translate-x-8'
+            }`}>
+              <div>
+                <h2 className="text-4xl md:text-5xl font-bold mb-6 animate-gradient bg-gradient-to-r from-white via-orange-300 to-white bg-[length:200%_auto] bg-clip-text text-transparent">
+                  Get In Touch With Us Anytime!
+                </h2>
+                <p className="text-blue-100 mb-8 text-lg leading-relaxed animate-fadeInUp">
+                  Have questions or need assistance? We're here to help! Contact Clares Cove for bookings, 
+                  inquiries, or special requests. Your comfort is our priority.
+                </p>
+              </div>
+              
+              <div className="space-y-6">
+                {/* Phone */}
+                <div className={`flex items-start transform transition-all duration-500 hover:translate-x-2 group ${
+                  isVisible.contact ? 'animate-fadeInLeft' : 'opacity-0'
+                }`} style={{ animationDelay: '200ms' }}>
+                  <div className="bg-blue-800 p-4 rounded-xl mr-4 group-hover:scale-110 group-hover:bg-orange-500 transition-all duration-300">
+                    <FaPhone className="text-white text-xl" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-lg mb-1">Phone Numbers</p>
+                    <a href="tel:+9189993 58172" className="text-blue-200 hover:text-white transition-colors duration-300 block hover:translate-x-2">
+                       +91 89993 58172
+                    </a>
+                    <a href="tel:+917249171196" className="text-blue-200 hover:text-white transition-colors duration-300 block hover:translate-x-2">
+                       +91 72491 71196
+                    </a>
+                  </div>
+                </div>
+                
+                {/* Email */}
+                <div className={`flex items-start transform transition-all duration-500 hover:translate-x-2 group ${
+                  isVisible.contact ? 'animate-fadeInLeft' : 'opacity-0'
+                }`} style={{ animationDelay: '400ms' }}>
+                  <div className="bg-blue-800 p-4 rounded-xl mr-4 group-hover:scale-110 group-hover:bg-orange-500 transition-all duration-300">
+                    <FaEnvelope className="text-white text-xl" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-lg mb-1">Email Address</p>
+                   
+                    <a href="mailto:clarescovegoa@gmail.com" className="text-blue-200 hover:text-white transition-colors duration-300 block hover:translate-x-2">
+                       clarescovegoa@gmail.com
+                    </a>
+                  </div>
+                </div>
+                
+                {/* Location */}
+                <div className={`flex items-start transform transition-all duration-500 hover:translate-x-2 group ${
+                  isVisible.contact ? 'animate-fadeInLeft' : 'opacity-0'
+                }`} style={{ animationDelay: '600ms' }}>
+                  <div className="bg-blue-800 p-4 rounded-xl mr-4 group-hover:scale-110 group-hover:bg-orange-500 transition-all duration-300">
+                    <FaMapMarkerAlt className="text-white text-xl" />
+                  </div>
+                  <div>
+                    <p className="font-semibold text-lg mb-1">Location</p>
+                    <p className="text-blue-200 hover:text-white transition-colors duration-300 block hover:translate-x-2">
+                       Holiday St, Gauravaddo, Calangute
+                    </p>
+                    <p className="text-blue-200 hover:text-white transition-colors duration-300 block hover:translate-x-2">
+                       Goa, India 403516
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Social Links */}
             </div>
-            <div>
-              <p className="font-semibold text-lg mb-1">Phone Numbers</p>
-              <a href="tel:+9189993 58172" className="text-blue-200 hover:text-white transition-colors duration-300 block hover:translate-x-2">
-                 +91 89993 58172
-              </a>
-              <a href="tel:+917249171196" className="text-blue-200 hover:text-white transition-colors duration-300 block hover:translate-x-2">
-                 +91 72491 71196
-              </a>
-            </div>
-          </div>
-          
-          {/* Email */}
-          <div className={`flex items-start transform transition-all duration-500 hover:translate-x-2 group ${
-            isVisible.contact ? 'animate-fadeInLeft' : 'opacity-0'
-          }`} style={{ animationDelay: '400ms' }}>
-            <div className="bg-blue-800 p-4 rounded-xl mr-4 group-hover:scale-110 group-hover:bg-orange-500 transition-all duration-300">
-              <FaEnvelope className="text-white text-xl" />
-            </div>
-            <div>
-              <p className="font-semibold text-lg mb-1">Email Address</p>
-             
-              <a href="mailto:clarescovegoa@gmail.com" className="text-blue-200 hover:text-white transition-colors duration-300 block hover:translate-x-2">
-                 clarescovegoa@gmail.com
-              </a>
-            </div>
-          </div>
-          
-          {/* Location */}
-          <div className={`flex items-start transform transition-all duration-500 hover:translate-x-2 group ${
-            isVisible.contact ? 'animate-fadeInLeft' : 'opacity-0'
-          }`} style={{ animationDelay: '600ms' }}>
-            <div className="bg-blue-800 p-4 rounded-xl mr-4 group-hover:scale-110 group-hover:bg-orange-500 transition-all duration-300">
-              <FaMapMarkerAlt className="text-white text-xl" />
-            </div>
-            <div>
-              <p className="font-semibold text-lg mb-1">Location</p>
-              <p className="text-blue-200 hover:text-white transition-colors duration-300 block hover:translate-x-2">
-                 Holiday St, Gauravaddo, Calangute
-              </p>
-              <p className="text-blue-200 hover:text-white transition-colors duration-300 block hover:translate-x-2">
-                 Goa, India 403516
-              </p>
+
+            {/* Right Column - Contact Form */}
+            <div className={`bg-white rounded-2xl p-8 text-gray-800 shadow-2xl transform transition-all duration-1000 ease-out hover:shadow-3xl ${
+              isVisible.contact 
+                ? 'opacity-100 translate-x-0 scale-100 animate-fadeInRight' 
+                : 'opacity-0 translate-x-8 scale-95'
+            }`}>
+              <h3 className="text-2xl font-bold mb-6 text-gray-900">Send us a Message</h3>
+              
+              <form onSubmit={handleSubmit}>
+                <div className="mb-6 transform transition-all duration-300 hover:scale-[1.02] animate-fadeInUp" style={{ animationDelay: '100ms' }}>
+                  <input
+                    type="text"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleInputChange}
+                    placeholder="Your Name"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:shadow-md"
+                    required
+                  />
+                </div>
+                
+                <div className="mb-6 transform transition-all duration-300 hover:scale-[1.02] animate-fadeInUp" style={{ animationDelay: '200ms' }}>
+                  <input
+                    type="email"
+                    name="email"
+                    value={formData.email}
+                    onChange={handleInputChange}
+                    placeholder="Your Email"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:shadow-md"
+                    required
+                  />
+                </div>
+                
+                <div className="mb-6 transform transition-all duration-300 hover:scale-[1.02] animate-fadeInUp" style={{ animationDelay: '300ms' }}>
+                  <textarea
+                    name="message"
+                    value={formData.message}
+                    onChange={handleInputChange}
+                    placeholder="Your Message"
+                    rows="4"
+                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:shadow-md resize-none"
+                    required
+                  />
+                </div>
+                
+                <button
+                  type="button"
+                  onClick={() => {
+                    const phoneNumber = "7249171196";
+                    const message = encodeURIComponent("Hello! I would like to know more about your services.");
+                    window.open(`https://wa.me/91${phoneNumber}?text=${message}`, "_blank");
+                  }}
+                  className="w-full bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 flex items-center justify-center gap-3"
+                >
+                  <FaWhatsapp className="text-lg" />
+                  Chat on WhatsApp
+                </button>
+                
+                {formStatus === 'success' && (
+                  <div className="mt-4 p-4 bg-green-100 text-green-700 rounded-lg text-center animate-bounce">
+                    ✅ Message sent successfully! We'll get back to you within 24 hours.
+                  </div>
+                )}
+              </form>
             </div>
           </div>
         </div>
-
-        {/* Social Links */}
-       
-      </div>
-
-      {/* Right Column - Contact Form */}
-      <div className={`bg-white rounded-2xl p-8 text-gray-800 shadow-2xl transform transition-all duration-1000 ease-out hover:shadow-3xl ${
-        isVisible.contact 
-          ? 'opacity-100 translate-x-0 scale-100 animate-fadeInRight' 
-          : 'opacity-0 translate-x-8 scale-95'
-      }`}>
-        <h3 className="text-2xl font-bold mb-6 text-gray-900">Send us a Message</h3>
-        
-        <form onSubmit={handleSubmit}>
-          <div className="mb-6 transform transition-all duration-300 hover:scale-[1.02] animate-fadeInUp" style={{ animationDelay: '100ms' }}>
-            <input
-              type="text"
-              name="name"
-              value={formData.name}
-              onChange={handleInputChange}
-              placeholder="Your Name"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:shadow-md"
-              required
-            />
-          </div>
-          
-          <div className="mb-6 transform transition-all duration-300 hover:scale-[1.02] animate-fadeInUp" style={{ animationDelay: '200ms' }}>
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleInputChange}
-              placeholder="Your Email"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:shadow-md"
-              required
-            />
-          </div>
-          
-          <div className="mb-6 transform transition-all duration-300 hover:scale-[1.02] animate-fadeInUp" style={{ animationDelay: '300ms' }}>
-            <textarea
-              name="message"
-              value={formData.message}
-              onChange={handleInputChange}
-              placeholder="Your Message"
-              rows="4"
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 hover:shadow-md resize-none"
-              required
-            />
-          </div>
-          
-           <button
-                          type="button"
-                          onClick={() => {
-                            const phoneNumber = "7249171196";
-                            const message = encodeURIComponent("Hello! I would like to know more about your services.");
-                            window.open(`https://wa.me/91${phoneNumber}?text=${message}`, "_blank");
-                          }}
-                          className="w-full bg-gradient-to-r from-green-500 to-green-600 text-white font-semibold py-4 px-6 rounded-xl shadow-lg hover:shadow-xl transition-all-300 hover-grow hover-shrink flex items-center justify-center gap-3"
-                        >
-                          <FaWhatsapp className="text-lg" />
-                          Chat on WhatsApp
-                        </button>
-          
-          {formStatus === 'success' && (
-            <div className="mt-4 p-4 bg-green-100 text-green-700 rounded-lg text-center animate-bounce">
-              ✅ Message sent successfully! We'll get back to you within 24 hours.
-            </div>
-          )}
-        </form>
-      </div>
-    </div>
-  </div>
-</section>
+      </section>
 
       {/* Call to Action Section */}
       <section className="bg-gradient-to-r from-gray-50 to-gray-100 py-20 text-center">
@@ -921,7 +1110,7 @@ const features = [
             Book Your Stay Today!
           </h2>
           <p className="max-w-3xl mx-auto text-gray-700 mb-8 text-xl">
-            Discover the best corporate guest house in Goa with unmatched hospitality, modern amenities, and budget-friendly pricing. Whether you’re planning a business trip, a weekend getaway, or a long-term stay, Clares Cove Guest House is your ideal accommodation choice.
+            Discover the best corporate guest house in Goa with unmatched hospitality, modern amenities, and budget-friendly pricing. Whether you're planning a business trip, a weekend getaway, or a long-term stay, Clares Cove Guest House is your ideal accommodation choice.
           </p>
           
           <div className="flex flex-wrap gap-6 justify-center mb-8">
@@ -979,8 +1168,6 @@ const features = [
             />
             
             <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent p-6 text-white">
-              <h3 className="text-3xl font-bold mb-2">{selectedImage.title}</h3>
-              <p className="text-gray-300">{selectedImage.description}</p>
               <div className="mt-2 text-gray-400">Gallery #{selectedImage.id.toString().padStart(2, '0')}</div>
             </div>
             
@@ -1004,7 +1191,7 @@ const features = [
             href="https://wa.me/7249171196"
             target="_blank"
             rel="noopener noreferrer"
-            className="fixed bottom-6 right-6 z-40 animate-float animate-scaleIn transition-all-300 hover-grow"
+            className="fixed bottom-6 right-6 z-40 animate-float animate-scaleIn transition-all duration-300 hover:scale-110"
             style={{ animationDelay: '900ms' }}
           >
             <div className="relative">
@@ -1018,7 +1205,6 @@ const features = [
           </a>
         </>
       )}
-
 
       {/* Add custom CSS for animations */}
       <style jsx>{`
@@ -1072,6 +1258,65 @@ const features = [
           }
         }
         
+        @keyframes fadeInUp {
+          from {
+            opacity: 0;
+            transform: translateY(30px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        @keyframes slideUp {
+          from {
+            opacity: 0;
+            transform: translateY(50px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+        
+        @keyframes fadeInLeft {
+          from {
+            opacity: 0;
+            transform: translateX(-20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+        
+        @keyframes fadeInRight {
+          from {
+            opacity: 0;
+            transform: translateX(20px);
+          }
+          to {
+            opacity: 1;
+            transform: translateX(0);
+          }
+        }
+        
+        @keyframes blob {
+          0% {
+            transform: translate(0px, 0px) scale(1);
+          }
+          33% {
+            transform: translate(30px, -50px) scale(1.1);
+          }
+          66% {
+            transform: translate(-20px, 20px) scale(0.9);
+          }
+          100% {
+            transform: translate(0px, 0px) scale(1);
+          }
+        }
+        
         .animate-fadeIn {
           animation: fadeIn 0.3s ease-out forwards;
         }
@@ -1091,6 +1336,34 @@ const features = [
         
         .animate-spin-slow {
           animation: spin-slow 10s linear infinite;
+        }
+        
+        .animate-fadeInUp {
+          animation: fadeInUp 0.8s ease-out forwards;
+        }
+        
+        .animate-slideUp {
+          animation: slideUp 1s ease-out forwards;
+        }
+        
+        .animate-fadeInLeft {
+          animation: fadeInLeft 0.8s ease-out forwards;
+        }
+        
+        .animate-fadeInRight {
+          animation: fadeInRight 0.8s ease-out forwards;
+        }
+        
+        .animate-blob {
+          animation: blob 7s infinite;
+        }
+        
+        .animation-delay-2000 {
+          animation-delay: 2s;
+        }
+        
+        .animation-delay-4000 {
+          animation-delay: 4s;
         }
         
         /* Smooth scroll behavior */
@@ -1114,15 +1387,6 @@ const features = [
         
         ::-webkit-scrollbar-thumb:hover {
           background: linear-gradient(to bottom, #2563eb, #7c3aed);
-        }
-        
-        /* Custom utility classes */
-        .transition-all-300 {
-          transition: all 0.3s ease;
-        }
-        
-        .hover-grow:hover {
-          transform: scale(1.1);
         }
       `}</style>
     </div>

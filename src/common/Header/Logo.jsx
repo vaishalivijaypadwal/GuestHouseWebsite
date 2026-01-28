@@ -1,28 +1,24 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-
-const Logo = () => {
-  return (
-    <Link to="/" className="flex items-center group">
-      {/* Logo Image */}
-      <div className="relative">
-        <img 
-          src="/images/logo.jpg" 
-          alt="Clares Cove Guest House"
-          className="w-14 h-14 rounded-lg object-cover shadow-lg group-hover:shadow-xl transition-all duration-300 transform group-hover:scale-105"
-          onError={(e) => {
-            e.target.onerror = null;
-            // Add a fallback text
-            const parent = e.target.parentNode;
-            const fallback = document.createElement('div');
-            fallback.className = 'w-14 h-14 rounded-lg bg-gradient-to-br from-blue-500 to-blue-400 flex items-center justify-center text-white font-bold text-lg';
-            fallback.textContent = 'CC';
-            parent.replaceChild(fallback, e.target);
-          }}
-        />
-      </div>
-    </Link>
-  );
-};
-
-export default Logo;
+{/* Logo */}
+<div className="flex items-center">
+  <Link to="/" className="flex items-center space-x-3">
+    {/* Logo Image with multiple fallbacks */}
+    <div className="relative">
+      <img 
+        src="/images/logo.jpg" 
+        alt=""
+         className="h-28 w-auto mr-3 object-contain"
+        onError={(e) => {
+          // Try different image paths if first fails
+          if (e.target.src.includes('/images/logo.jpg')) {
+            e.target.src = '/logo.jpg';
+          } else if (e.target.src.includes('/logo.jpg')) {
+            e.target.src = 'https://via.placeholder.com/150x60/3B82F6/FFFFFF?text=Clares+Cove';
+          }
+        }}
+      />
+    </div>
+    
+    {/* Text logo as fallback */}
+    
+  </Link>
+</div>

@@ -78,32 +78,23 @@ const Navbar = () => {
   return (
     <header className={`navbar-container fixed w-full z-50 transition-all duration-500 ${isScrolled ? 'py-2 bg-white/95 backdrop-blur-lg shadow-lg' : 'py-4 bg-gradient-to-b from-black/90 to-transparent'}`}>
       <div className="container mx-auto px-4 md:px-8">
-        <div className="flex justify-between items-center h-20">
+        <div className="flex justify-between items-center h-28">
           
-          {/* Logo */}
-          <div className="flex items-center">
-  <Link to="/" className="flex items-center space-x-3">
-    {/* Logo Image */}
-    <img 
-      src="/images/logo.jpg" 
-      alt="Clares Cove Guest House Logo"
-      className={`h-10 w-10 md:h-12 md:w-12 object-contain rounded-full border ${isScrolled ? 'border-blue-100' : 'border-white/30'}`}
-      onError={(e) => {
-        e.target.onerror = null;
-        e.target.style.display = 'none';
-        // Fallback to text if image fails to load
-      }}
-    />
-    <div className="text-3xl font-bold text-white">
-      <span className={`${isScrolled ? 'text-blue-600' : 'text-white'}`}>Clares</span>
-      <span className="text-blue-400">Cove</span>
-    </div>
-    <span className={`text-xs ${isScrolled ? 'bg-blue-600 text-white' : 'bg-white/20 text-white'} px-2 py-1 rounded backdrop-blur-sm`}>
-      Guest House
-    </span>
-  </Link>
-</div>
-
+          <div className="mb-6">
+                        <Link to="/" className="inline-flex items-center">
+                          {/* Logo Image */}
+                          <img 
+            src="/images/logo.jpg" 
+            alt="Clares Cove Guest House Logo"
+            className="h-28 w-auto mr-3 object-contain"
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.style.display = 'none';
+            }}
+          />
+          
+                        </Link>
+                      </div>
           {/* Desktop Navigation */}
           <nav className="hidden lg:block">
             <ul className="flex items-center space-x-1">
